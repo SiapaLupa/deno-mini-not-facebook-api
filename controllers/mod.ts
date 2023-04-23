@@ -1,0 +1,5 @@
+export * as AuthController from "./auth.controller.ts"
+export * as CommentController from "./comment.controller.ts"
+export * as PostController from "./post.controller.ts"
+export * as UserController from "./user.controller.ts"
+export * as NotificationController from "./notification.controller.ts"

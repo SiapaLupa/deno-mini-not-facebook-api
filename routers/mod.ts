@@ -1,0 +1,5 @@
+export { dahsboardRouter } from "./dashboard.ts"
+export { postRouter } from "./post.ts"
+export { userRouter } from "./user.ts"
+export { authRouter } from "./auth.ts"
+export { notificationRouter } from "./notification.ts"
