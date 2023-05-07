@@ -11,6 +11,7 @@ import { cors } from "./utils/cors.ts";
 import { error } from "./middlewares/error.ts";
 import { lostChild } from "./middlewares/lost-child.ts";
 import { notificationRouter } from "./routers/notification.ts";
+import { logger } from "./middlewares/logger.ts";
 
 const app: Application = new Application({
   keys: [Deno.env.get("COOKIE_KEY") || crypto.randomUUID().replaceAll("-", "")],
@@ -23,6 +24,7 @@ app
     ]),
   )
   .use(error)
+  .use(logger)
   .use(landingRoute.routes())
   .use(postRouter.routes())
   .use(authRouter.routes())

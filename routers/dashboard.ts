@@ -13,6 +13,7 @@ dahsboardRouter.prefix("/dashboard")
   .get("/", (context: Context) => {
     const { response, state } = context;
     const { user } = state;
+    response.headers.set("Content-Type", "application/json");
     response.status = Status.OK;
-    response.body = "HELLO " + user.name;
+    response.body = { message: "HELLO, " + user.name };
   });

@@ -10,10 +10,6 @@ export const error: Middleware = async (
   } catch (error) {
     if (error.code < 100 || error.code > 599) error.code = 500;
     const { code, message } = error;
-    response.headers.set(
-      "Access-Control-Allow-Origin",
-      "*",
-    );
     response.status = code;
     response.body = { error: message };
   }

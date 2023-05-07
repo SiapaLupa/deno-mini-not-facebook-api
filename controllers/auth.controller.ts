@@ -8,6 +8,7 @@ import {
 } from "../errors/mod.ts";
 import { SessionCollection } from "../models/session.model.ts";
 import { ObjectId } from "https://deno.land/x/mongo@v0.31.2/mod.ts";
+import { Status } from "https://deno.land/std@0.178.0/http/http_status.ts";
 
 export { signin, signout, signup };
 
@@ -17,6 +18,7 @@ const signout: Middleware = async (context: Context) => {
   await cookies.delete("sessionId", { signed: true });
   if (!sessionId) throw new Error("You have been logout");
   await SessionCollection.deleteOne({ _id: new ObjectId(sessionId) });
+  response.status = Status.OK;
   response.body = { message: "Success Logout" };
 };
 
@@ -42,7 +44,7 @@ const signup: Middleware = async (context: Context) => {
   const { request, response, cookies } = context;
   const body: URLSearchParams = await request.body({ type: "form" }).value;
   const { name, age, email, password } = Object.fromEntries(body);
-  if (!name.trim()) throw new BadRequestError("Input field: name");
+  if (!name.trim() || name === "undefined") throw new BadRequestError("Input field: name");
   if (!age) throw new BadRequestError("Input field: age");
   if (!email) throw new BadRequestError("Input field: email");
   if (!password) throw new BadRequestError("Input field: password");

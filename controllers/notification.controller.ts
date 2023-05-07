@@ -24,7 +24,8 @@ const index: Middleware = async (context: Context) => {
   if (typeof read !== "undefined") filter.read = !!+read;
   const notifications = await NotificationCollection.find(filter).toArray();
   const count = notifications.length;
-  if (notifications) message = "There are" + count + "notification";
+  if (notifications) message = "There are " + count + " notification";
+  response.headers.set("Content-Type", "application/json");
   response.body = { message, count, notifications };
 };
 
